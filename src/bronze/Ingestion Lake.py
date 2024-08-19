@@ -24,13 +24,6 @@ ingestion_data = load_data("raw", "transactions", "transactions", "csv")
 
 # COMMAND ----------
 
-# df = spark.read.format("csv")\
-#     .option("header", "true")\
-#     .load("/Volumes/raw/transactions/transactions/")
-# df.show(4)
-
-# COMMAND ----------
-
 ingestion_data.write.format("delta")\
     .mode("overwrite")\
     .saveAsTable("bronze.transactions.transactions")
