@@ -3,10 +3,6 @@ spark
 
 # COMMAND ----------
 
-print('Working')
-
-# COMMAND ----------
-
 catalog_name = "raw" 
 schema_name = "transactions"
 table_name = "transactions"
@@ -24,21 +20,17 @@ def load_data(catalog_name, schema_name, table_name, format_type):
 
 # COMMAND ----------
 
-teste = load_data("raw", "transactions", "transactions", "csv")
+ingestion_data = load_data("raw", "transactions", "transactions", "csv")
 
 # COMMAND ----------
 
-df = spark.read.format("csv")\
-    .option("header", "true")\
-    .load("/Volumes/raw/transactions/transactions/")
-df.show(4)
+# df = spark.read.format("csv")\
+#     .option("header", "true")\
+#     .load("/Volumes/raw/transactions/transactions/")
+# df.show(4)
 
 # COMMAND ----------
 
-df.write.format("delta")\
+ingestion_data.write.format("delta")\
     .mode("overwrite")\
     .saveAsTable("bronze.transactions.transactions")
-
-# COMMAND ----------
-
-
